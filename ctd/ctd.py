@@ -60,15 +60,35 @@ def main():
     ds = xr.concat(datasets, dim="SOUNDING")
     ds = ds.assign_coords(SOUNDING=range(1, ds.sizes["SOUNDING"] + 1))
 
-    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
+    # Re-define global attributes after concatenation
+    ds.attrs["featureType"] = "trajectoryProfile"
 
-    ds.attrs["title"] = "GEOMAR PO CTD data for METEOR cruise M203"
+    ds.attrs["time_coverage_start"] = str(ds.TIME.values[0])
+    ds.attrs["time_coverage_end"] = str(ds.TIME.values[-1])
+
+    ds.attrs["geospatial_lat_min"] = ds.LATITUDE.min().values
+    ds.attrs["geospatial_lat_max"] = ds.LATITUDE.max().values
+    ds.attrs["geospatial_lon_min"] = ds.LONGITUDE.min().values
+    ds.attrs["geospatial_lon_max"] = ds.LONGITUDE.max().values
+
+    # Set global attributes accoring to ORCESTRA conventions
+    ds.attrs["title"] = "GEOMAR PO-processed CTD data of cruise Meteor 203/1 CTD station number 1"
+
+    ds.attrs["project"] = "ORCESTRA, BOW-TIE"
+    ds.attrs["platform"] = "RV METEOR"
+    ds.attrs["source"] = "CTD profile observation"
+
+    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
     ds.attrs["history"] += (
-        f"; {now} converted to zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+        f"; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     )
-    ds.attrs["publisher_email"] = "lukas.kluft@mpimet.mpg.de"
-    ds.attrs["publisher_name"] = "Lukas Kluft"
-    ds.attrs["publisher_url"] = "https://orcid.org/0000-0002-6533-3928"
+
+    ds.attrs["license"] = "CC-BY-4.0"
+
+    # Remove unset attributes
+    ds.attrs.pop("summary")
+    ds.attrs.pop("references")
+    ds.attrs.pop("keywords")
 
     ds.to_zarr("CTD.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2)
 
