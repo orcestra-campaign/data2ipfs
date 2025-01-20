@@ -3,7 +3,7 @@ import glob
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-
+import fsspec
 import numcodecs
 import xarray as xr
 
@@ -50,10 +50,11 @@ def open_dataset(filename):
 
 
 def main():
+    root = "ipns://latest.orcestra-campaign.org"
     datasets = [
-        open_dataset(f)
+        open_dataset(fsspec.open_local(f"simplecache::ipns://{f}"))
         for f in sorted(
-            glob.iglob("/work/mh0010/ORCESTRA/raw/METEOR/CTD/nc/met_203_1_ctd_*.nc")
+            fsspec.filesystem("ipns").glob(f"{root}/raw/METEOR/CTD/nc/met_203_1_ctd_*.nc")
         )
     ]
     ds = xr.concat(datasets, dim="SOUNDING")
