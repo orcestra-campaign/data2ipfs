@@ -12,11 +12,11 @@ def get_chunks(dimensions):
     match dimensions:
         case ("SOUNDING",):
             chunks = {
-                "SOUNDING": -1,
+                "SOUNDING": 82,
             }
         case ("SOUNDING", "PRES"):
             chunks = {
-                "SOUNDING": -1,
+                "SOUNDING": 82,
                 "PRES": 2240,
             }
 
@@ -70,7 +70,7 @@ def main():
     ds.attrs["publisher_name"] = "Lukas Kluft"
     ds.attrs["publisher_url"] = "https://orcid.org/0000-0002-6533-3928"
 
-    ds.to_zarr("CTD.zarr", encoding=get_encoding(ds), mode="w")
+    ds.to_zarr("CTD.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2)
 
 
 if __name__ == "__main__":
