@@ -48,6 +48,7 @@ def get_latest(datadir):
         if "100Hz" in f.name:
             if flight_date == "2024-11-10":
                 ds = read_igi(f, skip_header=99, flight_date=flight_date)
+                ds = ds.drop_vars(["IGI_RMSX", "IGI_RMSY", "IGI_RMSZ", "IRS_EWV", "IRS_NSV", "IRS_VV"])
             else:
                 ds = read_bahamas_100hz(f, flight_date=flight_date)
             ds.attrs["source"] = "BAHAMAS IGI 100 Hz"
