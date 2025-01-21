@@ -131,23 +131,6 @@ def _halo20240827_hack(raw, products):
         mode="w",
         zarr_format=2,
     )
-    print(f"{store.name}: {path2ipfs(store)}")
-
-
-def path2ipfs(path):
-    ret = subprocess.run(
-        [
-            "ipfs",
-            "add",
-            "--recursive",
-            "--hidden",
-            "--quieter",
-            "--raw-leaves",
-            path,
-        ],
-        capture_output=True,
-    )
-    return ret.stdout.decode().strip()
 
 
 def _main():
@@ -179,7 +162,6 @@ def _main():
                 mode="w",
                 zarr_format=2,
             )
-            print(f"{store.name}: {path2ipfs(store)}")
 
 
 if __name__ == "__main__":
