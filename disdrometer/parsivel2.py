@@ -177,20 +177,23 @@ if __name__ == "__main__":
     for instrument in ("Parsivel_1", "Parsivel_2"):
         ds = read_parsivel(f"/scratch/m/m300575/tmp/{instrument}/{instrument}.csv")
 
-        ds.attrs["title"] = f"{instrument} disdrometer measurements during METEOR cruise M203"
-
-        now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
-        ds.attrs["history"] = (
-            f"{now} converted to zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
-        )
-
+        # Add constant fields as global attributes
         ds.attrs["firmware_iop"] = ds.firmware_iop.values[0].decode()
         ds.attrs["station_name"] = ds.station_name.values[0].decode()
         ds.attrs["sensor_serial_numer"] = ds.sensor_serial_number[0].values.item()
         ds = ds.drop_vars(["firmware_iop", "station_name", "sensor_serial_number"])
 
-        ds.attrs["publisher_name"] = "Lukas Kluft"
-        ds.attrs["publisher_email"] = "lukas.kluft@mpimet.mpg.de"
-        ds.attrs["publisher_url"] = "https://orcid.org/0000-0002-6533-3928"
+        ds.attrs["title"] = f"{instrument.replace('_', ' ')} disdrometer measurements during METEOR cruise M203"
+        ds.attrs["creator_name"] = "Friedhelm Jansen"
+        ds.attrs["creator_email"] = "friedhelm.jansen@mpimet.mpg.de"
+        ds.attrs["project"] = "ORCESTRA, BOW-TIE"
+        ds.attrs["platform"] = "RV METEOR"
+        ds.attrs["source"] = "OTT Parsivel2 laser disdrometer"
+        ds.attrs["license"] = "CC-BY-4.0"
+
+        now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
+        ds.attrs["history"] = (
+            f"{now} converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+        )
 
         ds.to_zarr(f"{instrument}.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2)
