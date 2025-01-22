@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+import fsspec
 import numcodecs
 import xarray as xr
 
@@ -25,8 +29,29 @@ def get_encoding(dataset):
 
 
 def main():
-    ds = xr.open_dataset("METEOR_GNSS_IWV_20240813_000030_20240923_195300.nc", chunks={})
-    ds.attrs["history"] += "; Converted to zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de"
+    root = "ipns://latest.orcestra-campaign.org"
+    ds = xr.open_dataset(
+        fsspec.open_local(
+            f"simplecache::{root}/raw/METEOR/GNSS_IWV/METEOR_GNSS_IWV_20240813_000030_20240923_195300.nc"
+        ),
+        chunks={},
+    )
+
+    ds.attrs["title"] = "IWV data from GNSS antenna on R/V METEOR"
+    ds.attrs["creator_name"] = "Pierre Bosser"
+    ds.attrs["creator_email"] = "pierre.bosser@ensta-bretagne.fr"
+    ds.attrs["summary"] = ds.attrs.pop("methodology")
+    ds.attrs["project"] = "ORCESTRA, BOW-TIE"
+    ds.attrs["platform"] = "RV METEOR"
+    ds.attrs["source"] = "GNNS antenna"
+    ds.attrs["license"] = "CC-BY-4.0"
+    ds.attrs["references"] = '"Bosser et al. 2021, ESSD"'
+
+    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
+    ds.attrs["history"] += (
+        f"; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+    )
+
     ds.to_zarr("METEOR_GNSS_IWV.zarr", mode="w", encoding=get_encoding(ds))
 
 
