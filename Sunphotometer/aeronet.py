@@ -2,6 +2,7 @@
 import pathlib
 from datetime import datetime
 
+import fsspec
 import numcodecs
 import numpy as np
 import pandas as pd
@@ -61,12 +62,18 @@ def open_dataset(csvfile):
 
 
 def main():
+    protocol = "ipns"
+    root = "ipns://latest.orcestra-campaign.org/raw/METEOR/sunphotometer"
+
+    fs = fsspec.filesystem(protocol)
     for subdir, pattern in zip(("AOD", "SDA"), ("Meteor_24_0_*.lev??", "Meteor_24_0_*.ONEILL_??")):
-        for csvfile in pathlib.Path(subdir).glob(pattern):
-            print(csvfile)
-            ds = open_dataset(csvfile)
+        for csvfile in fs.glob(f"{root}/{subdir}/{pattern}"):
+            csvfile = pathlib.Path(csvfile)
+
+            ds = open_dataset(fsspec.open_local(f"simplecache::{protocol}://{csvfile}"))
+
             ds.to_zarr(
-                csvfile.with_suffix(csvfile.suffix + ".zarr"),
+                csvfile.with_suffix(csvfile.suffix + ".zarr").name,
                 mode="w",
                 encoding=get_encoding(ds),
             )
