@@ -50,12 +50,20 @@ def open_dataset(csvfile):
             ds = ds.rename({var: var.lower().replace(" ", "_")})
 
     ds.attrs = {
-        "title": "2024 RV Meteor Cruise",
-        "source": "AERONET Maritime Aerosol Network",
-        "PI": "Elena Lind, Pawan Gupta and Daniel Klocke",
-        "email": "elena.lind@nasa.gov, pawan.gupta@nasa.gov and daniel.klocke@mpimet.mpg.de",
+        "creator_name": "Elena Lind, Pawan Gupta, Daniel Klocke",
+        "creator_email": "elena.lind@nasa.gov, pawan.gupta@nasa.gov, daniel.klocke@mpimet.mpg.de",
+        "project": "ORCESTRA, BOW-TIE, AERONET",
+        "platform": "RV METEOR",
         "references": "https://aeronet.gsfc.nasa.gov/new_web/cruises_v3/Meteor_24_0.html",
+        "license": "CC-BY-4.0",
         "history": "Converted to Zarr by Lukas Kluft",
+        "data_usage": (
+            "The public domain data you are about to download are contributed by the Maritime Aerosol Network (MAN), "
+            "a component of the International AERONET Federation. Each cruise has Principal Investigators (PIs) "
+            "responsible for instrument deployment, maintenance and data collection. The PIs have priority use of the "
+            "data collected during the ship cruise. The PIs are entitled to be notified when using their cruise data. "
+            "PIs contact information are available on data charts and in downloaded data files for each cruise."
+        ),
     }
 
     return ds
@@ -68,10 +76,24 @@ def main():
     fs = fsspec.filesystem(protocol)
     for subdir, pattern in zip(("AOD", "SDA"), ("Meteor_24_0_*.lev??", "Meteor_24_0_*.ONEILL_??")):
         for csvfile in fs.glob(f"{root}/{subdir}/{pattern}"):
-            csvfile = pathlib.Path(csvfile)
-
             ds = open_dataset(fsspec.open_local(f"simplecache::{protocol}://{csvfile}"))
 
+            # Construct dataset title
+            if "10" in csvfile:
+                level = "Level 1.0"
+                ds.attrs["source"] = f"{level} Maritime Aerosol Network (MAN) Measurements: These data are not screened and may not have final calibration applied"
+            elif "15" in csvfile:
+                level = "Level 1.5"
+                ds.attrs["source"] = f"{level} Maritime Aerosol Network (MAN) Measurements: These data are screened for clouds and pointing errors but may not have final calibration applied"
+            elif "20" in csvfile:
+                level = "Level 2.0"
+                ds.attrs["source"] = f"{level} Maritime Aerosol Network (MAN) Measurements: These data are screened for clouds and pointing errors, have final calibration applied, and are manually inspected"
+
+            retrieval = ", SDA Retrieval" if "ONEILL" in csvfile else ""
+
+            ds.attrs["title"] = f"Sunphotometer (Microtops) measurements during METEOR cruise M203 ({level}{retrieval})"
+
+            csvfile = pathlib.Path(csvfile)
             ds.to_zarr(
                 csvfile.with_suffix(csvfile.suffix + ".zarr").name,
                 mode="w",
