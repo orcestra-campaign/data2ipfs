@@ -1,18 +1,8 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: light
-#       format_version: '1.5'
-#       jupytext_version: 1.16.4
-#   kernelspec:
-#     display_name: main
-#     language: python
-#     name: main
-# ---
+#!/usr/bin/env python3
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-# +
+import fsspec
 import numcodecs
 import xarray as xr
 
@@ -43,17 +33,30 @@ def get_encoding(dataset):
 
 
 def main():
-    ds_v0 = xr.open_mfdataset("/work/mh0010/ORCESTRA/raw/METEOR/WindLidar-Abacus/v0.0/nc_v0.0/*.nc", chunks={"time": -1})
-    ds_v0.attrs["history"] += "; Converted to zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
-    ds_v0.chunk(time=-1).to_zarr("v0.0.zarr", encoding=get_encoding(ds_v0), mode="w")
-    
-    ds_v1 = xr.open_mfdataset("/work/mh0010/ORCESTRA/raw/METEOR/WindLidar-Abacus/v1.0/nc_v1.0/*.nc", chunks={"time": -1})
-    ds_v1.attrs["history"] += "; Converted to zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
-    ds_v1.chunk(time=-1).to_zarr("v1.0.zarr", encoding=get_encoding(ds_v1), mode="w")
-    
-    ds_v2 = xr.open_mfdataset("/work/mh0010/ORCESTRA/raw/METEOR/WindLidar-Abacus/v2.0/nc_v2.0/*.nc", chunks={"time": -1})
-    ds_v2.attrs["history"] += "; Converted to zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
-    ds_v2.chunk(time=-1).to_zarr("v2.0.zarr", encoding=get_encoding(ds_v2), mode="w")
+    versions = {
+        ("v0.0", "Wind LiDAR LiTra S raw data (ship motion present)"),
+        ("v1.0", "Wind LiDAR LiTra S heave-corrected, synchronous ship motion data"),
+        ("v2.0", "Wind LiDAR LiTra S heave-corrected, asynchronous ship motion data"),
+    }
+
+    root = "ipns://latest.orcestra-campaign.org"
+    for version, title in versions:
+        urlpath = fsspec.open_local(f"simplecache::{root}/raw/METEOR/WindLidar-Abacus/{version}/nc_{version}/*.nc")
+        ds = xr.open_mfdataset(urlpath, chunks={"time": -1})
+
+        ds.attrs["title"] = title
+        ds.attrs["creator_name"] = "Ilya Serikov"
+        ds.attrs["creator_email"] = "ilya.serikov@mpimet.mpg.de"
+        ds.attrs["project"] = "ORCESTRA, BOW-TIE"
+        ds.attrs["platform"] = "RV METEOR"
+        ds.attrs["license"] = "CC-BY-4.0"
+
+        now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
+        ds.attrs["history"] += (
+            f"; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+        )
+
+        ds.chunk(time=-1).to_zarr(f"{version}.zarr", encoding=get_encoding(ds), mode="w")
 
 
 if __name__ == "__main__":
