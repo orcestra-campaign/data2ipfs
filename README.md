@@ -10,3 +10,10 @@ However, certain data formats allow the user to access data directly via http(s)
 One of these data formats is the [Zarr](https://zarr.dev) format, which is designed to store large, chunked, compressed, N-dimensional arrays.
 
 This repository provides Python scripts that convert the various raw data sets collected during ORCESTRA to Zarr.
+
+## Running the scripts
+
+This repository includes a [uv](https://docs.astral.sh/uv) project structure, which defines a strict set of dependencies.
+You can run each script by calling:
+
+    uv run <script>
