@@ -47,7 +47,9 @@ def get_latest(datadir):
         if "100Hz" in f.name:
             if flight_date == "2024-11-10":
                 ds = read_igi(f, skip_header=99, flight_date=flight_date)
-                ds = ds.drop_vars(["IGI_RMSX", "IGI_RMSY", "IGI_RMSZ", "IRS_EWV", "IRS_NSV", "IRS_VV"])
+                ds = ds.drop_vars(
+                    ["IGI_RMSX", "IGI_RMSY", "IGI_RMSZ", "IRS_EWV", "IRS_NSV", "IRS_VV"]
+                )
             else:
                 ds = read_bahamas_100hz(f, flight_date=flight_date)
             ds.attrs["source"] = "BAHAMAS IGI 100 Hz"
@@ -101,7 +103,9 @@ def homogenize(ds):
     ds.attrs["version"] = "1.0.0"
 
     ds.attrs["title"] = "HALO position and attitude data"
-    ds.attrs["summary"] = "This dataset provides a best estimate of the position and attitude of the HALO aircraft during the ORCESTRA campaign. The data is collected from the IGI system (see `source` attribute)."
+    ds.attrs["summary"] = (
+        "This dataset provides a best estimate of the position and attitude of the HALO aircraft during the ORCESTRA campaign. The data is collected from the IGI system (see `source` attribute)."
+    )
     ds.attrs["creator_name"] = "Lukas Kluft"
     ds.attrs["creator_email"] = "lukas.kluft@mpimet.mpg.de"
     ds.attrs["project"] = "ORCESTRA, PERCUSION"
@@ -122,7 +126,9 @@ def _halo20240827_hack(raw, products):
     ds_b = ds_b.pipe(bahamas)[_vars.keys()].pipe(homogenize)
 
     ds = xr.concat([ds_a, ds_b], dim="time")
-    ds.attrs["source"] = "Here be dragons! During the 2024-08-27 flight, the BAHAMAS system failed. As a result, position and attitude data are being combined from two separate input sources with a small gap between them."
+    ds.attrs["source"] = (
+        "Here be dragons! During the 2024-08-27 flight, the BAHAMAS system failed. As a result, position and attitude data are being combined from two separate input sources with a small gap between them."
+    )
 
     store = products / "HALO-20240827a.zarr/"
     ds.to_zarr(

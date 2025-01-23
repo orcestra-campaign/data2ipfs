@@ -53,7 +53,9 @@ def main():
     datasets = [
         open_dataset(fsspec.open_local(f"simplecache::ipns://{f}"))
         for f in sorted(
-            fsspec.filesystem("ipns").glob(f"{root}/raw/METEOR/CTD/nc/met_203_1_ctd_*.nc")
+            fsspec.filesystem("ipns").glob(
+                f"{root}/raw/METEOR/CTD/nc/met_203_1_ctd_*.nc"
+            )
         )
     ]
     ds = xr.concat(datasets, dim="SOUNDING")
@@ -71,7 +73,9 @@ def main():
     ds.attrs["geospatial_lon_max"] = ds.LONGITUDE.max().values
 
     # Set global attributes accoring to ORCESTRA conventions
-    ds.attrs["title"] = "GEOMAR PO-processed CTD data of cruise Meteor 203/1 CTD station number 1"
+    ds.attrs["title"] = (
+        "GEOMAR PO-processed CTD data of cruise Meteor 203/1 CTD station number 1"
+    )
 
     ds.attrs["project"] = "ORCESTRA, BOW-TIE"
     ds.attrs["platform"] = "RV METEOR"

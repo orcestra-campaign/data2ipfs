@@ -37,26 +37,30 @@ fields_multi = [
     ("field_v", "<f4", (32,), ("v",), {"long_name": "mean velocity per class", "units": "mm s-1"}),
     ("raw", "<i2", (32, 32), ("v", "d"), {"long_name": "particle count per class"}),
 ]
-#define boundaries
-d_bounds = np.concatenate([
-    np.arange(0, 10) * 0.125,
-    np.arange(0, 5) * 0.25 + 1.25,
-    np.arange(0, 5) * 0.5 + 2.5,
-    np.arange(0, 5) * 1 + 5,
-    np.arange(0, 5) * 2 + 10,
-    np.arange(0, 3) * 3 + 20,
-])
+# define boundaries
+d_bounds = np.concatenate(
+    [
+        np.arange(0, 10) * 0.125,
+        np.arange(0, 5) * 0.25 + 1.25,
+        np.arange(0, 5) * 0.5 + 2.5,
+        np.arange(0, 5) * 1 + 5,
+        np.arange(0, 5) * 2 + 10,
+        np.arange(0, 3) * 3 + 20,
+    ]
+)
 d_bounds = np.stack([d_bounds[:-1], d_bounds[1:]], axis=-1).astype("<f4")
 d_centers = d_bounds.mean(axis=-1)
 
-v_bounds = np.concatenate([
-    np.arange(0, 10) * 0.1,
-    np.arange(0, 5) * 0.2 + 1,
-    np.arange(0, 5) * 0.4 + 2,
-    np.arange(0, 5) * 0.8 + 4,
-    np.arange(0, 5) * 1.6 + 8,
-    np.arange(0, 3) * 3.2 + 16,
-])
+v_bounds = np.concatenate(
+    [
+        np.arange(0, 10) * 0.1,
+        np.arange(0, 5) * 0.2 + 1,
+        np.arange(0, 5) * 0.4 + 2,
+        np.arange(0, 5) * 0.8 + 4,
+        np.arange(0, 5) * 1.6 + 8,
+        np.arange(0, 3) * 3.2 + 16,
+    ]
+)
 v_bounds = np.stack([v_bounds[:-1], v_bounds[1:]], axis=-1).astype("<f4")
 v_centers = v_bounds.mean(axis=-1)
 
@@ -79,41 +83,76 @@ def fix_ds(ds):
 
     for name, dtype, shape, dims, attrs in fields_multi:
         n = np.prod(shape)
-        var = np.stack([ds[i].values for i in range(ofs, ofs+n)], axis=-1).reshape(-1, *shape)
-        variables[name] = xr.DataArray(var, dims=tuple(ds.dims) + dims, attrs=attrs).astype(dtype)
+        var = np.stack([ds[i].values for i in range(ofs, ofs + n)], axis=-1).reshape(
+            -1, *shape
+        )
+        variables[name] = xr.DataArray(
+            var, dims=tuple(ds.dims) + dims, attrs=attrs
+        ).astype(dtype)
         ofs += n
-    
-    return xr.Dataset({
-        **variables,
-        "d_bounds": (("d", "bnd"), d_bounds, {"long_name": "bounds of particle diameter bins", "units": "mm"}),
-        "v_bounds": (("v", "bnd"), v_bounds, {"long_name": "bounds of particle velocity bins", "units": "m s-1"}),
-    }, coords={
-        "d": ("d", d_centers, {"long_name": "nominal centers of particle diameter bins", "units": "mm", "bounds": "d_bounds"}),
-        "v": ("v", v_centers, {"long_name": "nominal centers of particle velocity bins", "units": "m s-1", "bounds": "v_bounds"}),
-    })
+
+    return xr.Dataset(
+        {
+            **variables,
+            "d_bounds": (
+                ("d", "bnd"),
+                d_bounds,
+                {"long_name": "bounds of particle diameter bins", "units": "mm"},
+            ),
+            "v_bounds": (
+                ("v", "bnd"),
+                v_bounds,
+                {"long_name": "bounds of particle velocity bins", "units": "m s-1"},
+            ),
+        },
+        coords={
+            "d": (
+                "d",
+                d_centers,
+                {
+                    "long_name": "nominal centers of particle diameter bins",
+                    "units": "mm",
+                    "bounds": "d_bounds",
+                },
+            ),
+            "v": (
+                "v",
+                v_centers,
+                {
+                    "long_name": "nominal centers of particle velocity bins",
+                    "units": "m s-1",
+                    "bounds": "v_bounds",
+                },
+            ),
+        },
+    )
 
 
 def read_parsivel(filename):
     # if is_empty_csv(filename):
     #     return xr.Dataset()
 
-
-    df = pd.read_csv(filename,
-                     delimiter=";",
-                     skiprows=1,
-                     header=None,
-                     dtype={0: str, 1: str},
-                     on_bad_lines="warn",
-                     names=list(range(1108))  # specifying the known numbers of columns helps detecting broken lines
-                    )
+    df = pd.read_csv(
+        filename,
+        delimiter=";",
+        skiprows=1,
+        header=None,
+        dtype={0: str, 1: str},
+        on_bad_lines="warn",
+        names=list(
+            range(1108)
+        ),  # specifying the known numbers of columns helps detecting broken lines
+    )
 
     df.pop(1107)  # empty column at end
-    df = df.dropna()  # in some cases, broken lines still show up, but contain NaN values
+    df = (
+        df.dropna()
+    )  # in some cases, broken lines still show up, but contain NaN values
 
-    dtcols = df.pop(0) + ';' + df.pop(1)
-    df['time'] = pd.to_datetime(dtcols, format="mixed", dayfirst=True)
+    dtcols = df.pop(0) + ";" + df.pop(1)
+    df["time"] = pd.to_datetime(dtcols, format="mixed", dayfirst=True)
 
-    df = df.set_index('time')
+    df = df.set_index("time")
 
     assert df.index.is_monotonic_increasing
 
@@ -163,7 +202,9 @@ def get_encoding(dataset):
     return {
         var: {
             "chunks": get_chunks(dataset[var].dims),
-            "compressor": None if isinstance(dataset[var].dtype, np.dtypes.StrDType) else codec,
+            "compressor": None
+            if isinstance(dataset[var].dtype, np.dtypes.StrDType)
+            else codec,
         }
         for var in dataset.variables
         if var not in dataset.dims
@@ -180,7 +221,9 @@ if __name__ == "__main__":
         ds.attrs["sensor_serial_numer"] = ds.sensor_serial_number[0].values.item()
         ds = ds.drop_vars(["firmware_iop", "station_name", "sensor_serial_number"])
 
-        ds.attrs["title"] = f"{instrument.replace('_', ' ')} disdrometer measurements during METEOR cruise M203"
+        ds.attrs["title"] = (
+            f"{instrument.replace('_', ' ')} disdrometer measurements during METEOR cruise M203"
+        )
         ds.attrs["creator_name"] = "Friedhelm Jansen"
         ds.attrs["creator_email"] = "friedhelm.jansen@mpimet.mpg.de"
         ds.attrs["project"] = "ORCESTRA, BOW-TIE"
@@ -193,4 +236,6 @@ if __name__ == "__main__":
             f"{now} converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
         )
 
-        ds.to_zarr(f"{instrument}.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2)
+        ds.to_zarr(
+            f"{instrument}.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2
+        )

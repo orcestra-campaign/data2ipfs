@@ -73,24 +73,34 @@ def main():
     root = "ipns://latest.orcestra-campaign.org/raw/METEOR/sunphotometer"
 
     fs = fsspec.filesystem(protocol)
-    for subdir, pattern in zip(("AOD", "SDA"), ("Meteor_24_0_*.lev??", "Meteor_24_0_*.ONEILL_??")):
+    for subdir, pattern in zip(
+        ("AOD", "SDA"), ("Meteor_24_0_*.lev??", "Meteor_24_0_*.ONEILL_??")
+    ):
         for csvfile in fs.glob(f"{root}/{subdir}/{pattern}"):
             ds = open_dataset(fsspec.open_local(f"simplecache::{protocol}://{csvfile}"))
 
             # Construct dataset title
             if "10" in csvfile:
                 level = "Level 1.0"
-                ds.attrs["source"] = f"{level} Maritime Aerosol Network (MAN) Measurements: These data are not screened and may not have final calibration applied"
+                ds.attrs["source"] = (
+                    f"{level} Maritime Aerosol Network (MAN) Measurements: These data are not screened and may not have final calibration applied"
+                )
             elif "15" in csvfile:
                 level = "Level 1.5"
-                ds.attrs["source"] = f"{level} Maritime Aerosol Network (MAN) Measurements: These data are screened for clouds and pointing errors but may not have final calibration applied"
+                ds.attrs["source"] = (
+                    f"{level} Maritime Aerosol Network (MAN) Measurements: These data are screened for clouds and pointing errors but may not have final calibration applied"
+                )
             elif "20" in csvfile:
                 level = "Level 2.0"
-                ds.attrs["source"] = f"{level} Maritime Aerosol Network (MAN) Measurements: These data are screened for clouds and pointing errors, have final calibration applied, and are manually inspected"
+                ds.attrs["source"] = (
+                    f"{level} Maritime Aerosol Network (MAN) Measurements: These data are screened for clouds and pointing errors, have final calibration applied, and are manually inspected"
+                )
 
             retrieval = ", SDA Retrieval" if "ONEILL" in csvfile else ""
 
-            ds.attrs["title"] = f"Sunphotometer (Microtops) measurements during METEOR cruise M203 ({level}{retrieval})"
+            ds.attrs["title"] = (
+                f"Sunphotometer (Microtops) measurements during METEOR cruise M203 ({level}{retrieval})"
+            )
 
             csvfile = pathlib.Path(csvfile)
             ds.to_zarr(

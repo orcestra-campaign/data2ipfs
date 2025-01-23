@@ -40,7 +40,9 @@ def main():
 
     root = "ipns://latest.orcestra-campaign.org"
     for version, title in versions:
-        urlpath = fsspec.open_local(f"simplecache::{root}/raw/METEOR/WindLidar-Abacus/{version}/nc_{version}/*.nc")
+        urlpath = fsspec.open_local(
+            f"simplecache::{root}/raw/METEOR/WindLidar-Abacus/{version}/nc_{version}/*.nc"
+        )
         ds = xr.open_mfdataset(urlpath, chunks={"time": -1})
 
         ds.attrs["title"] = title
@@ -55,7 +57,9 @@ def main():
             f"; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
         )
 
-        ds.chunk(time=-1).to_zarr(f"{version}.zarr", encoding=get_encoding(ds), mode="w")
+        ds.chunk(time=-1).to_zarr(
+            f"{version}.zarr", encoding=get_encoding(ds), mode="w"
+        )
 
 
 if __name__ == "__main__":

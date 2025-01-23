@@ -54,9 +54,13 @@ def main():
         ds.attrs["stop_time"] = str(ds.time.values[-1])
 
         if dataset.endswith("_b"):
-            ds.attrs["title"] = "Raman LiDAR LICHT fast product (2min smoothing) during METEOR cruise M203"
+            ds.attrs["title"] = (
+                "Raman LiDAR LICHT fast product (2min smoothing) during METEOR cruise M203"
+            )
         else:
-            ds.attrs["title"] = "Raman LiDAR LICHT slow product (58min smoothing) during METEOR cruise M203"
+            ds.attrs["title"] = (
+                "Raman LiDAR LICHT slow product (58min smoothing) during METEOR cruise M203"
+            )
 
         ds.attrs["creator_name"] = "Ilya Serikov"
         ds.attrs["creator_email"] = "ilya.serikov@mpimet.mpg.de"

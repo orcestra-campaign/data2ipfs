@@ -42,9 +42,7 @@ def main():
     ds.attrs["project"] = "ORCESTRA, BOW-TIE"
     ds.attrs["platform"] = "RV METEOR"
     ds.attrs["source"] = "DVS DShip"
-    ds.attrs["history"] = (
-        "Converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
-    )
+    ds.attrs["history"] = "Converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     ds.attrs["license"] = "CC-BY-4.0"
 
     ds.to_zarr("DShip.zarr", mode="w", encoding=get_encoding(ds), zarr_format=2)
