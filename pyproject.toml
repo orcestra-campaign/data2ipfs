@@ -1,0 +1,17 @@
+[project]
+name = "data2ipfs"
+version = "0.1.0"
+description = "Prepare data for publication via IPFS"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fsspec",
+    "ipfsspec>=0.5.3",
+    "netcdf4",
+    "numcodecs",
+    "numpy",
+    "orcestra>=0.0.28",
+    "pandas",
+    "xarray",
+    "zarr>=2,<3",
+]
