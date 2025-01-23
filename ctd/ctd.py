@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import glob
 from datetime import datetime
 from zoneinfo import ZoneInfo

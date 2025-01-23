@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import bz2
 import glob
 import xarray as xr
