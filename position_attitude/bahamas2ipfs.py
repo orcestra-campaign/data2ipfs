@@ -11,12 +11,12 @@ from orcestra.io import read_igi, read_bahamas_100hz
 
 
 _vars = {
-    "IRS_LON": ("lon", dict(long_name="WGS84 Datum/Longitude", unit="degrees_east")),
-    "IRS_LAT": ("lat", dict(long_name="WGS84 Datum/Latitude", unit="degrees_north")),
-    "IRS_ALT": ("alt", dict(long_name="WGS84 Datum/Elliptical Height", unit="m")),
-    "IRS_PHI": ("roll", dict(long_name="Attitude/Roll", unit="degree")),
-    "IRS_THE": ("pitch", dict(long_name="Attitude/Pitch", unit="degree")),
-    "IRS_R": ("heading", dict(long_name="Attitude/Yaw", unit="degree")),
+    "IRS_LON": ("lon", dict(long_name="WGS84 Datum/Longitude", units="degrees_east")),
+    "IRS_LAT": ("lat", dict(long_name="WGS84 Datum/Latitude", units="degrees_north")),
+    "IRS_ALT": ("alt", dict(long_name="WGS84 Datum/Elliptical Height", units="m")),
+    "IRS_PHI": ("roll", dict(long_name="Attitude/Roll", units="degree")),
+    "IRS_THE": ("pitch", dict(long_name="Attitude/Pitch", units="degree")),
+    "IRS_R": ("heading", dict(long_name="Attitude/Yaw", units="degree")),
 }
 
 
