@@ -100,7 +100,8 @@ def homogenize(ds):
         ds = ds.assign({new_name: ds[old_name].assign_attrs(attrs)}).drop_vars(old_name)
 
     ds = ds.assign_coords(lat=ds.lat, lon=ds.lon, alt=ds.alt).pipe(apply_scale)
-    ds.attrs["version"] = "1.0.0"
+
+    ds.attrs["featureType"] = "trajectory"
 
     ds.attrs["summary"] = (
         "This dataset provides a best estimate of the position and attitude of the HALO aircraft during the ORCESTRA campaign. The data is collected from the IGI system (see `source` attribute)."

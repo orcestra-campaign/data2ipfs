@@ -53,6 +53,8 @@ def main():
         ds.attrs["start_time"] = str(ds.time.values[0])
         ds.attrs["stop_time"] = str(ds.time.values[-1])
 
+        ds.attrs["featureType"] = "trajectoryProfile"
+
         if dataset.endswith("_b"):
             ds.attrs["title"] = (
                 "Raman LiDAR LICHT fast product (2min smoothing) during METEOR cruise M203"

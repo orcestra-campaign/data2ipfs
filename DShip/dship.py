@@ -36,6 +36,8 @@ def main():
     ).load()
     ds.attrs["history"] = "Converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
 
+    ds.attrs["featureType"] = "trajectory"
+
     ds.attrs["title"] = "Ship information database (DVS DShip) of METEOR cruise M203"
     ds.attrs["creator_name"] = "Hans Segura"
     ds.attrs["creator_email"] = "hans.segura@mpimet.mpg.de"

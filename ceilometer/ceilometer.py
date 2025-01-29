@@ -51,6 +51,8 @@ def main():
         fsspec.open_local(f"simplecache::{root}/raw/METEOR/ceilometer/*/*.nc")
     )
 
+    ds.attrs["featureType"] = "trajectoryProfile"
+
     ds.attrs["title"] = (
         "Ceilometer (CHM15k Nimbus) measurements during METEOR cruise M203"
     )

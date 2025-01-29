@@ -35,6 +35,7 @@ def main():
         ),
         chunks={},
     )
+    ds.attrs["featureType"] = "trajectory"
 
     ds.attrs["title"] = "IWV data from GNSS antenna on R/V METEOR"
     ds.attrs["creator_name"] = "Pierre Bosser"

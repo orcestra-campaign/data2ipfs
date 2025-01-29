@@ -63,6 +63,7 @@ def open_dataset(csvfile):
             "data collected during the ship cruise. The PIs are entitled to be notified when using their cruise data. "
             "PIs contact information are available on data charts and in downloaded data files for each cruise."
         ),
+        "featureType": "trajectory",
     }
 
     return ds

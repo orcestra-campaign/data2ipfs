@@ -45,6 +45,8 @@ def main():
         )
         ds = xr.open_mfdataset(urlpath, chunks={"time": -1})
 
+        ds.attrs["featureType"] = "trajectoryProfile"
+
         ds.attrs["title"] = title
         ds.attrs["creator_name"] = "Ilya Serikov"
         ds.attrs["creator_email"] = "ilya.serikov@mpimet.mpg.de"

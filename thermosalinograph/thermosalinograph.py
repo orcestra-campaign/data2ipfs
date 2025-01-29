@@ -45,6 +45,8 @@ def main():
         chunks={"time": -1},
     ).load()
 
+    ds.attrs["featureType"] = "trajectory"
+
     ds.attrs["title"] = (
         "Continuous thermosalinograph oceanography along RV METEOR cruise track M203"
     )

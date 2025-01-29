@@ -48,6 +48,8 @@ def main():
             )
         )
 
+        ds.attrs["featureType"] = "trajectory"
+
         ds.attrs["creator_name"] = "Daniel Klocke, Marcus Dengler, Robert Kopte"
         ds.attrs["creator_email"] = (
             "daniel.klocke@mpimet.mpg.de, mdengler@geomar.de, robert.kopte@ifg.uni-kiel.de"
