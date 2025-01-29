@@ -223,7 +223,7 @@ if __name__ == "__main__":
         ds = ds.drop_vars(["firmware_iop", "station_name", "sensor_serial_number"])
 
         ds.attrs["title"] = (
-            f"{instrument.replace('_', ' ')} disdrometer measurements during METEOR cruise M203"
+            f"Parsivel2 disdrometer measurements (instrument {instrument[-1]}) during METEOR cruise M203"
         )
         ds.attrs["creator_name"] = "Friedhelm Jansen"
         ds.attrs["creator_email"] = "friedhelm.jansen@mpimet.mpg.de"
