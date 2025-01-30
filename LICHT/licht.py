@@ -48,7 +48,9 @@ def get_encoding(dataset):
 def main():
     for dataset in ("LICHT-LIDAR_b", "LICHT-LIDAR_t"):
         ds = xr.open_mfdataset(
-            f"ql24??/{dataset}-*.nc", chunks={"time": -1, "alt": -1}
+            f"ql24??/{dataset}-*.nc",
+            chunks={"time": -1, "alt": -1},
+            combine_attrs="drop_conflicts",
         ).load()
         ds.attrs["start_time"] = str(ds.time.values[0])
         ds.attrs["stop_time"] = str(ds.time.values[-1])

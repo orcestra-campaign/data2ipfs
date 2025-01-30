@@ -48,9 +48,9 @@ def get_encoding(dataset):
 def main():
     root = "ipns://latest.orcestra-campaign.org"
     ds = xr.open_mfdataset(
-        fsspec.open_local(f"simplecache::{root}/raw/METEOR/ceilometer/*/*.nc")
+        fsspec.open_local(f"simplecache::{root}/raw/METEOR/ceilometer/*/*.nc"),
+        combine_attrs="drop_conflicts",
     )
-
     ds.attrs["featureType"] = "trajectoryProfile"
 
     ds.attrs["title"] = (
@@ -66,10 +66,6 @@ def main():
     ds.attrs["history"] = (
         f"{now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     )
-
-    ds.attrs.pop("day")
-    ds.attrs.pop("month")
-    ds.attrs.pop("year")
 
     ds.chunk(time=2**18).to_zarr("CHM170158.zarr", encoding=get_encoding(ds), mode="w")
 

@@ -4,6 +4,7 @@ from zoneinfo import ZoneInfo
 
 import fsspec
 import numcodecs
+import numpy as np
 import xarray as xr
 
 
@@ -58,11 +59,13 @@ def main():
             )
         )
     ]
-    ds = xr.concat(datasets, dim="SOUNDING")
+    ds = xr.concat(datasets, dim="SOUNDING", combine_attrs="drop_conflicts")
     ds = ds.assign_coords(SOUNDING=range(1, ds.sizes["SOUNDING"] + 1))
+    ds.SOUNDING.attrs = {"long_name": "sounding id", "units": "1"}
 
     # Re-define global attributes after concatenation
     ds.attrs["featureType"] = "trajectoryProfile"
+    ds.attrs = {k: v for k, v in ds.attrs.items() if v != "void"}
 
     ds.attrs["time_coverage_start"] = str(ds.TIME.values[0])
     ds.attrs["time_coverage_end"] = str(ds.TIME.values[-1])
@@ -82,16 +85,11 @@ def main():
     ds.attrs["source"] = "CTD profile observation"
 
     now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
-    ds.attrs["history"] += (
-        f"; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+    ds.attrs["history"] = (
+        "created during CTD processing; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     )
 
     ds.attrs["license"] = "CC-BY-4.0"
-
-    # Remove unset attributes
-    ds.attrs.pop("summary")
-    ds.attrs.pop("references")
-    ds.attrs.pop("keywords")
 
     ds.to_zarr("CTD.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2)
 

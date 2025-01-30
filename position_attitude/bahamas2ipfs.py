@@ -163,7 +163,9 @@ def _main():
         else:
             store = args.products / flight.with_suffix(".zarr").name
             ds = get_latest(flight).pipe(homogenize)
-            ds.attrs["title"] = f"HALO position and attitude data for flight {flight.name}"
+            ds.attrs["title"] = (
+                f"HALO position and attitude data for flight {flight.name}"
+            )
             ds.to_zarr(
                 store,
                 encoding=get_encoding(ds),

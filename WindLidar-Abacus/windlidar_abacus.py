@@ -43,7 +43,9 @@ def main():
         urlpath = fsspec.open_local(
             f"simplecache::{root}/raw/METEOR/WindLidar-Abacus/{version}/nc_{version}/*.nc"
         )
-        ds = xr.open_mfdataset(urlpath, chunks={"time": -1})
+        ds = xr.open_mfdataset(
+            urlpath, chunks={"time": -1}, combine_attrs="drop_conflicts"
+        )
 
         ds.attrs["featureType"] = "trajectoryProfile"
 
@@ -55,8 +57,8 @@ def main():
         ds.attrs["license"] = "CC-BY-4.0"
 
         now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
-        ds.attrs["history"] += (
-            f"; {now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+        ds.attrs["history"] = (
+            f"{now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
         )
 
         ds.chunk(time=-1).to_zarr(

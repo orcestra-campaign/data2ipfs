@@ -47,8 +47,7 @@ def main():
                 f"simplecache::{root}/raw/METEOR/ADCP/{ncfile}", chunks={}
             )
         )
-
-        ds.attrs["featureType"] = "trajectory"
+        ds.attrs = {k: v for k, v in ds.attrs.items() if str(v) != "void"}
 
         ds.attrs["creator_name"] = "Daniel Klocke, Marcus Dengler, Robert Kopte"
         ds.attrs["creator_email"] = (

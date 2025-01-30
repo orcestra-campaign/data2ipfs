@@ -213,7 +213,7 @@ def get_encoding(dataset):
 
 if __name__ == "__main__":
     for instrument in ("Parsivel_1", "Parsivel_2"):
-        ds = read_parsivel(f"/scratch/m/m300575/tmp/{instrument}/{instrument}.csv")
+        ds = read_parsivel(f"data/{instrument}_METEOR.dat")
         ds.attrs["featureType"] = "trajectory"
 
         # Add constant fields as global attributes
