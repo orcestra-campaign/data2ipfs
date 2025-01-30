@@ -38,6 +38,7 @@ def get_encoding(dataset):
 
 def get_latest(datadir):
     files = list(datadir.iterdir())
+    files = sorted(files, reverse=True)  # find *_V03 before *_V01
 
     dirname = datadir.name
     y, m, d = dirname[5:9], dirname[9:11], dirname[11:13]
