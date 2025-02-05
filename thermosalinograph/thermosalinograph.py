@@ -46,6 +46,9 @@ def main():
     ).load()
 
     ds.attrs["featureType"] = "trajectory"
+    ds.LATITUDE.attrs["units"] = "degrees_north"
+    ds.LONGITUDE.attrs["units"] = "degrees_east"
+    ds.TIME.encoding["units"] = "hours since 1970-01-01"
 
     ds.attrs["title"] = (
         "Continuous thermosalinograph oceanography along RV METEOR cruise track M203"
