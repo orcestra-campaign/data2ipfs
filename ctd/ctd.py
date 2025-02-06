@@ -42,6 +42,9 @@ def open_dataset(filename):
     ds.FULL_TIME.values -= 712224
     ds = xr.decode_cf(ds)
 
+    ds.TIME.attrs.pop("comment")
+    ds.FULL_TIME.attrs.pop("comment")
+
     ds = ds.swap_dims(
         {"TIME": "SOUNDING", "LATITUDE": "SOUNDING", "LONGITUDE": "SOUNDING"}
     )
@@ -67,6 +70,8 @@ def main():
     ds.attrs["featureType"] = "trajectoryProfile"
     ds.attrs = {k: v for k, v in ds.attrs.items() if v != "void"}
 
+    ds.TIME.encoding["units"] = "seconds since 1970-01-01"
+    ds.FULL_TIME.encoding["units"] = "seconds since 1970-01-01"
     ds.attrs["time_coverage_start"] = str(ds.TIME.values[0])
     ds.attrs["time_coverage_end"] = str(ds.TIME.values[-1])
 
@@ -91,7 +96,12 @@ def main():
 
     ds.attrs["license"] = "CC-BY-4.0"
 
-    ds.to_zarr("CTD.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2)
+    encoding = {
+        **get_encoding(ds),
+        "TIME": {"units": "seconds since 1970-01-01", "dtype": "f8"},
+        "FULL_TIME": {"units": "seconds since 1970-01-01", "dtype": "f8"},
+    }
+    ds.to_zarr("CTD.zarr", encoding=encoding, mode="w", zarr_format=2)
 
 
 if __name__ == "__main__":
