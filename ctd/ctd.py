@@ -53,12 +53,12 @@ def open_dataset(filename):
 
 
 def main():
-    root = "ipns://latest.orcestra-campaign.org"
+    root = "QmUVBD8RjcKWKjFp9kzi42v4rtLQEJBr6vTUsH8TZ7jNRJ"
     datasets = [
-        open_dataset(fsspec.open_local(f"simplecache::ipns://{f}"))
+        open_dataset(fsspec.open_local(f"simplecache::ipfs://{f}"))
         for f in sorted(
-            fsspec.filesystem("ipns").glob(
-                f"{root}/raw/METEOR/CTD/nc/met_203_1_ctd_*.nc"
+            fsspec.filesystem("ipfs").glob(
+                f"{root}/nc/met_203_1_ctd_*.nc"
             )
         )
     ]

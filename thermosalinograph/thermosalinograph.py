@@ -38,9 +38,9 @@ def get_encoding(dataset):
 
 
 def main():
-    root = "QmfN4Ef91S3g7q93fez1hKuHKF47MWG5dmJZtHo3FozbwC"
+    cid = "QmPzRf5CWUdUZGz81FH56MPGZ2HUVBm8PTSchs1zuZWwdB"
     ds = xr.open_dataset(
-        fsspec.open_local(f"simplecache::ipfs://{root}/M203_surf_oce.nc"),
+        fsspec.open_local(f"simplecache::ipfs://{cid}"),
         engine="netcdf4",
         chunks={"time": -1},
     ).load()
