@@ -1,5 +1,6 @@
 import fsspec
 import numcodecs
+import numpy as np
 import xarray as xr
 
 
@@ -48,7 +49,13 @@ def main():
     ds.attrs["featureType"] = "trajectory"
     ds.LATITUDE.attrs["units"] = "degrees_north"
     ds.LONGITUDE.attrs["units"] = "degrees_east"
+
+    # Round to original temporal resolution of 1-min (see ASCII data)
+    ds = ds.assign_coords(
+        TIME=(ds.TIME + np.timedelta64(500, "ms")).astype("datetime64[m]")
+    )
     ds.TIME.encoding["units"] = "minutes since 1970-01-01"
+    ds.TIME.encoding["dtype"] = "<i4"
 
     ds.attrs["title"] = (
         "Continuous thermosalinograph oceanography along RV METEOR cruise track M203"
