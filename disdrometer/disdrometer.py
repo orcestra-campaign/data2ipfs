@@ -58,6 +58,9 @@ if __name__ == "__main__":
         ds.attrs["summary"] = "\n".join(
             line.strip() for line in ds.attrs["summary"].split("\n")
         )
+        ds.attrs["references"] = ",".join(
+            line.strip().replace("/n", "") for line in ds.attrs["references"].split("\n")
+        )
         ds.attrs["project"] = ",".join(ds.attrs["project"])
         ds.attrs["featureType"] = "trajectory"
 
