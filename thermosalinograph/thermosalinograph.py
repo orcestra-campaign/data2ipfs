@@ -10,15 +10,14 @@ def get_chunks(dimensions):
             chunks = {
                 "TIME": 2**16,
             }
-        case ("TIME", "NO_OF_TEMPERATURES"):
+        case ("Depth",):
             chunks = {
-                "TIME": 2**16,
-                "NO_OF_TEMPERATURES": 2,
+                "Depth": 1,
             }
-        case ("TIME", "NO_OF_SALINITIES"):
+        case ("Depth", "TIME"):
             chunks = {
                 "TIME": 2**16,
-                "NO_OF_SALINITIES": 2,
+                "Depth": 1,
             }
 
     return tuple((chunks[d] for d in dimensions))
@@ -39,16 +38,12 @@ def get_encoding(dataset):
 
 
 def main():
-    cid = "QmPzRf5CWUdUZGz81FH56MPGZ2HUVBm8PTSchs1zuZWwdB"
+    cid = "Qmcc91KSJ18iZGzGzS1vcDfS2XGxVmhvRQtUEoeo6MwRSw"
     ds = xr.open_dataset(
         fsspec.open_local(f"simplecache::ipfs://{cid}"),
         engine="netcdf4",
         chunks={"time": -1},
     ).load()
-
-    ds.attrs["featureType"] = "trajectory"
-    ds.LATITUDE.attrs["units"] = "degrees_north"
-    ds.LONGITUDE.attrs["units"] = "degrees_east"
 
     # Round to original temporal resolution of 1-min (see ASCII data)
     ds = ds.assign_coords(
@@ -57,19 +52,11 @@ def main():
     ds.TIME.encoding["units"] = "minutes since 1970-01-01"
     ds.TIME.encoding["dtype"] = "<i4"
 
-    ds.attrs["title"] = (
-        "Continuous thermosalinograph oceanography along RV METEOR cruise track M203"
-    )
-    ds.attrs["creator_name"] = ", ".join(ds.attrs["contributor_name"])
-    ds.attrs["creator_email"] = ", ".join(ds.attrs["contributor_email"])
-    ds.attrs["project"] = "ORCESTRA, BOW-TIE"
-    ds.attrs["platform"] = "RV METEOR"
-    ds.attrs["source"] = "thermosalinograph (TSG) system"
-    ds.attrs["history"] = "Converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+    ds.attrs["references"] = ds.attrs["references"].replace("\n", "")
     ds.attrs["license"] = "CC-BY-4.0"
 
     ds.to_zarr(
-        "thermosalinograph.zarr", mode="w", encoding=get_encoding(ds), zarr_format=2
+        "met_203_1_tsal.zarr", mode="w", encoding=get_encoding(ds), zarr_format=2
     )
 
 
