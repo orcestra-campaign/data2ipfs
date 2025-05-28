@@ -39,6 +39,7 @@ def get_encoding(dataset):
 def _main():
     ncfiles = sorted(glob.glob("*.nc"))[5:]
     ds = xr.open_mfdataset(ncfiles, combine_attrs="drop_conflicts")
+    ds.attrs["featureType"] = "trajectory"
 
     ds.attrs["title"] = (
         "Microwave radiometer (HATPRO) single-pointing measurements during METEOR cruise M203"
