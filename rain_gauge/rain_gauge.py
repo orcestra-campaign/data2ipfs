@@ -52,12 +52,7 @@ def _main():
     ds = ds.assign(height=((), 35.0, {"long_name": "height", "units": "m"}))
 
     # Tro2 dauerhaft deaktiviert
-    ds = ds.drop_vars("Tro2")
-
-    # Convert unparsed values
-    ds = ds.assign(
-        RR_PWD22=(("time",), np.array([float(v) for v in ds.RR_PWD22.values]))
-    )
+    ds = ds.drop_vars(["Tro2", "RR_PWD22"])
 
     # Attach variable names
     variables = (
@@ -72,7 +67,6 @@ def _main():
         ("TT", "temperatur", "degC"),
         ("RH", "relative humidity", "%"),
         ("VVV", "visibility", "m"),
-        ("RR_PWD22", "rain rate", "mm/h"),
     )
 
     for var, long_name, units in variables:
@@ -87,7 +81,6 @@ def _main():
     ds.attrs["summary"] = (
         "The rain gauge has an upper and a lateral collecting surface on which the precipitation is converted into digital pulses via droplet formers. The pulses are recorded by the data logger as counting pulses via two digital inputs and transmitted to the meteorological computer via the RS422-interface.\n\n"
         "The precipitation detector serves as a signalling device for determining the start and end of precipitation. The precipitation is recorded by a light barrier system and triggers a switching signal, which is recorded via a digital status input of the data logger. The precipitation duration is determined in the METCO by integrating the status signal over time.\n\n"
-        "To determine the precipitation rate, the PWD22 visibility gauge is also used, which determines the type of precipitation by determining the water content of precipitation using a capacitive measurement (Vaisala RAINCAP® sensor element) and combining this information with the results from the optical forward scattering measurement. To increase sensitivity, the system is equipped with two Vaisala RAINCAP® sensors, allowing even the slightest precipitation, such as light drizzle, to be detected. By using advanced algorithms, it is possible to determine the type, amount and intensity of precipitation with high accuracy.\n\n"
         "The sensitivity of the precipitation detection is 0.05 mm/h or less."
     )
     ds.attrs["keywords"] = "precipitation amount, precipitation gauge, precipitation rate"
