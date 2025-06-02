@@ -46,6 +46,9 @@ def _main():
     )
     ds.attrs["keywords"] = "microwave, radiometer, water vapor"
 
+    ds.attrs["creator_name"] = "Heike Kalesse-Los, Anna Trosits"
+    ds.attrs["creator_email"] = "heike.kalesse@uni-leipzig.de, at58voge@studserv.uni-leipzig.de"
+
     ds.attrs["project"] = "ORCESTRA, BOW-TIE"
     ds.attrs["platform"] = "RV METEOR"
 
