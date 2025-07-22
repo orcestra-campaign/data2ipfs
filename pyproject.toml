@@ -13,5 +13,5 @@ dependencies = [
     "orcestra>=0.0.29",
     "pandas",
     "xarray",
-    "zarr>=2,<3",
+    "zarr>=3",
 ]
