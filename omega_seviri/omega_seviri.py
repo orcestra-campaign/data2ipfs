@@ -122,7 +122,10 @@ def main(infile, outfile):
     ds = ds.assign(err_omega=ds.err_omega.astype("<f4"))
 
     # Fix attribute conventions
-    ds = ds.assign_attrs(summary=ds.attrs.pop("description"))
+    ds = ds.assign_attrs(
+        summary=ds.attrs.pop("description"),
+        references=f'"{ds.references}"',
+    )
 
     # Write Zarr metadata
     ds.chunk(channel=-1, time=-1, x=-1, y=-1).to_zarr(
