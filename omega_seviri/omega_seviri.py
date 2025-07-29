@@ -125,6 +125,7 @@ def main(infile, outfile):
     ds = ds.assign_attrs(
         summary=ds.attrs.pop("description"),
         references=f'"{ds.references}"',
+        platform="MSG",
     )
 
     # Write Zarr metadata
