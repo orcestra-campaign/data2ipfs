@@ -25,6 +25,8 @@ def attach_xy_coordinates(ds):
     valid_lons = ds.lons.where(ds.lons != -999)
     valid_lats = ds.lats.where(ds.lats != -999)
 
+    ds = ds.assign(lons=valid_lons, lats=valid_lats)
+
     xyz = seviri_proj.transform_points(
         src_crs=ccrs.Geodetic(),
         x=valid_lons.values,
