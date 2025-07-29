@@ -99,7 +99,7 @@ def get_chunks(sizes):
 
 def get_encoding(dataset):
     numcodecs.blosc.set_nthreads(1)  # IMPORTANT FOR DETERMINISTIC CIDs
-    compressor = numcodecs.Blosc("lz4", clevel=6)
+    compressor = numcodecs.Blosc("zstd", clevel=6)
 
     return {
         var: {
