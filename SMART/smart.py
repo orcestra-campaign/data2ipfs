@@ -96,6 +96,20 @@ def main():
                 }
             ).drop_vars([f"{var_prefix}_{w}_nm" for w in ds.wavelength.values])
 
+        author, email = ds.attrs.pop("author").split(",")
+        ds.attrs["creator_name"] = author.strip()
+        ds.attrs["creator_email"] = email.strip()
+        ds.attrs["project"] = "ORCESTRA, PERCUSION"
+        ds.attrs["platform"] = "HALO"
+        ds.attrs["source"] = (
+            "Spectral Modular Airborne Radiation measurement sysTem (SMART)"
+        )
+        ds.attrs["history"] = (
+            "Converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
+        )
+        ds.attrs["license"] = "CC-BY-4.0"
+        ds.attrs["featureType"] = "trajectory"
+
         ds.load().to_zarr(
             f"SMART_{direction}.zarr",
             encoding=get_encoding(ds),
