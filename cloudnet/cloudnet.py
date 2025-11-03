@@ -114,7 +114,7 @@ def _main():
         ],
         compat="override",
     )
-    cloudnet.attrs["title"] = cloudnet.attrs["title"].split("\n")[0]
+    cloudnet.attrs["title"] = "Cloud radar and Cloudnet on RV Meteor during BOWTIE"
     cloudnet.attrs["license"] = cloudnet.attrs["license"].replace(" ", "-")
     cloudnet.attrs["project"] = "BOW-TIE"
     cloudnet.attrs["keywords"] = "Cloudnet, effective radius, droplet"
