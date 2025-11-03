@@ -44,8 +44,8 @@ def get_encoding(dataset):
 
 def _main():
     hatpro_datasets = {
-        "single": "QmTCX3C1tiMaQyUfLkiazk2pqEbjPyKb2cc7Egzev3VAEK",
-        "multi": "QmfJxdi75KNWr6bk9uDdFYzbRGxDf68NYzQ5cpBZpjjjhw",
+        "single": "QmZHPTnWvBnixBrKg1617TurnCgmwiDd1pCTcBCg5ZR4fV",
+        "multi": "QmaUkbMEDyVvEXTKVXrawHX3UMZeyCjwY5zqmuyJqiuUaP",
     }
 
     # Collect datasets for single- and multi-pointing HATPRO products.
@@ -55,27 +55,18 @@ def _main():
             ["ipfs://" + item["name"] for item in fs.listdir(root_cid)]
         )
 
-        # The HATPRO datasets have different height coordinates from August 22nd on.
-        campaign_parts = [
-            hatpro_files[:5],
-            hatpro_files[5:],
-        ]
+        hatpro = xr.open_mfdataset(hatpro_files, engine="zarr")
+        hatpro.attrs["license"] = hatpro.attrs["license"].replace(" ", "-")
+        hatpro.attrs["project"] = "BOW-TIE"
+        hatpro.attrs["keywords"] = "HATPRO, Radiometer, Microwave"
+        hatpro.attrs["featureType"] = "trajectoryProfile"
 
-        # Loop over 1st and 2nd campaign part
-        for part, part_files in enumerate(campaign_parts, start=1):
-            hatpro = xr.open_mfdataset(part_files, engine="zarr")
-            hatpro.attrs["title"] += f" (Part {part})"
-            hatpro.attrs["license"] = hatpro.attrs["license"].replace(" ", "-")
-            hatpro.attrs["project"] = "BOW-TIE"
-            hatpro.attrs["keywords"] = "HATPRO, Radiometer, Microwave"
-            hatpro.attrs["featureType"] = "trajectoryProfile"
-
-            hatpro.load().to_zarr(
-                f"hatpro_{ds_name}_part{part}.zarr",
-                encoding=get_encoding(hatpro),
-                zarr_format=2,
-                mode="w",
-            )
+        hatpro.load().to_zarr(
+            f"hatpro_{ds_name}.zarr",
+            encoding=get_encoding(hatpro),
+            zarr_format=2,
+            mode="w",
+        )
 
 
 if __name__ == "__main__":
