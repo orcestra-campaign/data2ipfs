@@ -100,10 +100,10 @@ def get_encoding(dataset):
     }
 
 
-for ncfile in pathlib.Path("/work/mh0010/m300575/sea-pol/data").glob("*.nc"):
+for ncfile in pathlib.Path("./data").glob("*.nc"):
     print(ncfile)
     ds = xr.open_dataset(ncfile, chunks={"time": 256})
-    ds.attrs.update(**GLOBAL_ATTRS.get(ncfile.name))
+    ds.attrs.update(creator_name=ds.creator_name.replace(" and", ""))
 
     for varname, da in ds.variables.items():
         # Rechunk one-dimensional time series along time dimension.
