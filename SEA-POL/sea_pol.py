@@ -85,7 +85,7 @@ def get_chunks(sizes):
 
 
 def get_compressor():
-    return numcodecs.Blosc("zstd", clevel=6, shuffle=2)
+    return numcodecs.Blosc("zstd", clevel=6)
 
 
 def get_encoding(dataset):
