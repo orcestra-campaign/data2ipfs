@@ -74,7 +74,7 @@ def main():
     ds.attrs["platform"] = "RV METEOR"
     ds.attrs["license"] = "CC-BY-4.0"
 
-    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
+    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT")
     ds.attrs["history"] = (
         f"{now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     )
