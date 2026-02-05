@@ -78,7 +78,9 @@ def main():
         f"{now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     )
 
-    ds.chunk(time=2**18).to_zarr("CHM170158.zarr", encoding=get_encoding(ds), mode="w")
+    ds.chunk(time=2**18).to_zarr(
+        "CHM170158.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2
+    )
 
 
 if __name__ == "__main__":
