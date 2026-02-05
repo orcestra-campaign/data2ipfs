@@ -51,6 +51,17 @@ def main():
         fsspec.open_local(f"simplecache::{root}/raw/METEOR/ceilometer/*/*.nc"),
         combine_attrs="drop_conflicts",
     )
+
+    # Merge coordinates from DShip data
+    dship = xr.open_dataset(
+        "ipfs://bafybeib5awa3le6nxi4rgepn2mwxj733aazpkmgtcpa3uc2744gxv7op44",
+        engine="zarr",
+    ).sel(time=ds.time, method="nearest")
+
+    ds = ds.assign(
+        longitude=(("time",), dship.lon.values, {"units": "degrees_east"}),
+        latitude=(("time",), dship.lat.values, {"units": "degrees_north"}),
+    )
     ds.attrs["featureType"] = "trajectoryProfile"
 
     ds.attrs["title"] = (
