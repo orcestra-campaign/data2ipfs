@@ -50,6 +50,7 @@ def main():
     ds = xr.open_mfdataset(
         fsspec.open_local(f"simplecache::{root}/raw/METEOR/ceilometer/*/*.nc"),
         combine_attrs="drop_conflicts",
+        data_vars="all",
     )
 
     # Merge coordinates from DShip data
