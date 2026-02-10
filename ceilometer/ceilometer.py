@@ -50,6 +50,18 @@ def main():
     ds = xr.open_mfdataset(
         fsspec.open_local(f"simplecache::{root}/raw/METEOR/ceilometer/*/*.nc"),
         combine_attrs="drop_conflicts",
+        data_vars="all",
+    )
+
+    # Merge coordinates from DShip data
+    dship = xr.open_dataset(
+        "ipfs://bafybeib5awa3le6nxi4rgepn2mwxj733aazpkmgtcpa3uc2744gxv7op44",
+        engine="zarr",
+    ).sel(time=ds.time, method="nearest")
+
+    ds = ds.assign(
+        longitude=(("time",), dship.lon.values, {"units": "degrees_east"}),
+        latitude=(("time",), dship.lat.values, {"units": "degrees_north"}),
     )
     ds.attrs["featureType"] = "trajectoryProfile"
 
@@ -62,12 +74,14 @@ def main():
     ds.attrs["platform"] = "RV METEOR"
     ds.attrs["license"] = "CC-BY-4.0"
 
-    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT%H:%M:%SZ")
+    now = datetime.now().astimezone(ZoneInfo("UTC")).strftime(r"%Y-%m-%dT")
     ds.attrs["history"] = (
         f"{now}: converted to Zarr by Lukas Kluft (lukas.kluft@mpimet.mpg.de)"
     )
 
-    ds.chunk(time=2**18).to_zarr("CHM170158.zarr", encoding=get_encoding(ds), mode="w")
+    ds.chunk(time=2**18).to_zarr(
+        "CHM170158.zarr", encoding=get_encoding(ds), mode="w", zarr_format=2
+    )
 
 
 if __name__ == "__main__":
