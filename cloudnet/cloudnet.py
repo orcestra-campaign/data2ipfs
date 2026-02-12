@@ -115,7 +115,17 @@ def _main():
         ],
         compat="override",
         join="outer",
+    ).assign(
+        rain_attenuation_flag=lambda dx: dx.rain_attenuation_flag.assign_attrs(
+            {
+                "description": "Rain attenuation flag =True (1) when the rain strongly attenuates the radar signal and echo top height does not represent cloud top anymore",
+                "flag_meanings": "ok strong_attenuation_by_rain",
+                "flag_values": "0 1",
+                "units": "1",
+            }
+        )
     )
+
     cloudnet.attrs["title"] = "Cloud radar and Cloudnet on RV Meteor during BOWTIE"
     cloudnet.attrs["license"] = cloudnet.attrs["license"].replace(" ", "-")
     cloudnet.attrs["project"] = "BOW-TIE"
