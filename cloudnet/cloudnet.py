@@ -60,6 +60,7 @@ def open_mfdataset_ipfs(
         ],
         dim=concat_dim,
         combine_attrs=combine_attrs,
+        data_vars="all",
     )
 
 
@@ -113,6 +114,7 @@ def _main():
             cloudnet_class_ecmwf,
         ],
         compat="override",
+        join="outer",
     )
     cloudnet.attrs["title"] = "Cloud radar and Cloudnet on RV Meteor during BOWTIE"
     cloudnet.attrs["license"] = cloudnet.attrs["license"].replace(" ", "-")
