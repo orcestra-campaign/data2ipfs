@@ -6,6 +6,7 @@
 #SBATCH --mem=0
 import os
 import datetime
+import pathlib
 
 import numcodecs
 import numpy as np
@@ -214,38 +215,72 @@ def process_flights():
     )
 
 
-def concat_stores():
-    ds_full = xr.open_mfdataset(
-        "zarr/HALO_VELOX_BT_Flight_*.zarr",
-        data_vars="all",
-        compat="no_conflicts",
+def filter_by_dim(ds, dim):
+    return ds[[v for v, a in ds.variables.items() if dim in a.dims]]
+
+
+def concat_along_dim(datasets, dim):
+    return xr.concat(
+        (filter_by_dim(d, dim) for d in datasets),
+        dim=dim,
+        compat="override",
+        coords="minimal",
         combine_attrs="drop_conflicts",
     )
 
-    # store = "swift://swift.dkrz.de/dkrz_948e7d4bbfbb445fbff5315fc433e36a/ORCESTRA/HALO_VELOX_BT.zarr"
-    store = "/scratch/m/m300575/HALO_VELOX_BT.zarr"
 
-    ds_full.chunk(time=-1).to_zarr(
+def concat_stores():
+    datastore = pathlib.Path("/scratch/m/m300575")
+    datasets = [
+        xr.open_dataset(fname, engine="zarr", chunks={"x": -1, "y": -1})
+        for fname in sorted(datastore.glob("HALO_VELOX_BT_Flight_*.zarr"))
+    ]
+
+    ds_full = xr.merge(
+        [
+            concat_along_dim(datasets, "time"),
+            concat_along_dim(datasets, "time_sim"),
+            datasets[0][["vaa", "vza"]],
+        ]
+    )
+
+    # store = "swift://swift.dkrz.de/dkrz_948e7d4bbfbb445fbff5315fc433e36a/ORCESTRA/HALO_VELOX_BT.zarr"
+    store = "/scratch/m/m300575/HALO_VELOX_BT_ORCESTRA.zarr"
+
+    ds_full.chunk(time=-1, time_sim=-1).to_zarr(
         store,
         mode="w",
         zarr_format=2,
         encoding=get_encoding(ds_full),
         compute=False,
-        storage_options={"get_client": get_client},
+        # storage_options={"get_client": get_client},
     )
 
-    ds_full[["alt", "lat", "lon", "vaa", "vza"]].chunk(time=-1).to_zarr(
+    ds_full[
+        [
+            "alt",
+            "lat",
+            "lon",
+            "vaa",
+            "vza",
+            "BT_center",
+            "BT_center_broadband",
+            "BT_sim",
+            "BT_sim_broadband",
+        ]
+    ].chunk(time=-1, time_sim=-1).to_zarr(
         store,
         mode="a",
-        storage_options={"get_client": get_client},
+        # storage_options={"get_client": get_client},
     )
 
-    ds_full[["BT", "BT_broadband"]].chunk(time=30).to_zarr(
+    ds_full[["BT_2D", "BT_2D_broadband"]].chunk(time=30).to_zarr(
         store,
         mode="a",
-        storage_options={"get_client": get_client},
+        # storage_options={"get_client": get_client},
     )
 
 
 if __name__ == "__main__":
-    process_flights()
+    # process_flights()
+    concat_stores()
