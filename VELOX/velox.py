@@ -144,7 +144,7 @@ def open_dataset(date="20200124"):
             standard_name="brightness_temperature",
             long_name="Simulated brightness temperature",
         ),
-    ).chunk(time=30, time_sim=-1)
+    ).chunk(time=30, time_sim=-1).set_coords(("alt", "lat", "lon"))
 
     for var, da in ds_merged.variables.items():
         if len(da.dims) == 1:
