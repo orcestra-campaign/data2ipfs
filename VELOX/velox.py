@@ -157,9 +157,9 @@ def open_dataset(date="20200124"):
         creator_name="Sophie Rosenburg, Michael Schäfer, Anna E. Luebke, Kevin Wolf, Patrizia Schoch, André Ehrlich, Manfred Wendisch",
         creator_email="sophie.rosenburg@uni-leipzig.de, michael.schaefer@uni-leipzig.de, anna.luebke@uni-leipzig.de, kevin.wolf@uni-leipzig.de, patrizia.schoch@uni-leipzig.de, a.ehrlich@uni-leipzig.de, m.wendisch@uni-leipzig.de",
         featureType="timeSeries",
-        description=open("description.txt").read(),
+        summary=open("description.txt").read(),
         keywords="PERCUSION, HALO, VELOX, thermal-infrared, brightness temperature",
-        reference="Schäfer, M. et al: VELOX – A new thermal infrared imager for airborne remote sensing of cloud and surface properties, Atmos. Meas. Tech., 15, 1491-1509, https://doi.org/10.5194/amt-15-1491-2022, 2022.",
+        references="'Schäfer, M. et al: VELOX – A new thermal infrared imager for airborne remote sensing of cloud and surface properties, Atmos. Meas. Tech., 15, 1491-1509, https://doi.org/10.5194/amt-15-1491-2022, 2022.'",
         license="CC-BY-4.0",
         history=f"{ds.created_on}: Created, {datetime.date.today()}: Merged datasets over campaign period and converted to Zarr",
     )
