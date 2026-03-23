@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #SBATCH --partition=compute
 #SBATCH --account=mh0066
-#SBATCH --time=01:00:00
+#SBATCH --time=04:00:00
 #SBATCH --mem=0
 import os
 import datetime
