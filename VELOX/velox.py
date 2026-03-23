@@ -94,7 +94,7 @@ def open_dataset(wavelength):
         ds = (
             ds.assign(
                 BT_2D=ds.BT_2D.assign_attrs(
-                    long_name="Two-dimensional brightness temperature of VELOX at flight altitude",
+                    long_name="Two-dimensional brightness temperature measured by VELOX at flight altitude",
                     standard_name="brightness_temperature",
                 ),
                 BT_center=ds.BT_center.assign_attrs(
