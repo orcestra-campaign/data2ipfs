@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
 #SBATCH --partition=compute
 #SBATCH --account=mh0066
 #SBATCH --time=04:00:00
