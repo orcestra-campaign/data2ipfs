@@ -135,8 +135,9 @@ def open_dataset(wavelength):
         elif var in ("BT_center", "BT_sim", "BT_center_broadband", "BT_sim_broadband"):
             ds_merged = ds_merged.assign({var: da.chunk(time=-1)})
 
+    wavelength_repr = "–".join([f"{float(wl) / 1e3} µm" for wl in wavelength.split("-")])
     ds_merged = ds_merged.assign_attrs(
-        title=f"Two-dimensional brightness temperature ({wavelength} nm, 1 Hz) derived from VELOX during PERCUSION",
+        title=f"Two-dimensional brightness temperature ({wavelength_repr}, 1 Hz) derived from VELOX during PERCUSION",
         creator_name="Sophie Rosenburg, Michael Schäfer, Anna E. Luebke, Kevin Wolf, Patrizia Schoch, André Ehrlich, Manfred Wendisch",
         creator_email="sophie.rosenburg@uni-leipzig.de, michael.schaefer@uni-leipzig.de, anna.luebke@uni-leipzig.de, kevin.wolf@uni-leipzig.de, patrizia.schoch@uni-leipzig.de, a.ehrlich@uni-leipzig.de, m.wendisch@uni-leipzig.de",
         featureType="trajectory",
@@ -155,7 +156,7 @@ def open_dataset(wavelength):
 
 
 def process_flights():
-    wavelengths = [8650, 10740, 11660, 12000, "7700-1200"]
+    wavelengths = ["8650", "10740", "11660", "12000", "7700-12000"]
     wavelength = wavelengths[int(os.environ.get("SLURM_ARRAY_TASK_ID", "0"))]
     ds = open_dataset(wavelength)
 
