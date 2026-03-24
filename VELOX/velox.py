@@ -85,7 +85,7 @@ def open_dataset(wavelength):
     data_root = pathlib.Path("/work/mh0010/ORCESTRA/raw/HALO/velox/")
 
     datasets = []
-    for ncfile in data_root.glob(f"*/*{wavelength}*.nc"):
+    for ncfile in sorted(data_root.glob(f"*/*{wavelength}*.nc")):
         ds = xr.open_mfdataset(
             ncfile,
             chunks={"x": -1, "y": -1, "time": 30, "time_sim": -1},
