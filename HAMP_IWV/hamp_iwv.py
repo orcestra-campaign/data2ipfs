@@ -42,7 +42,10 @@ def main():
         "/work/um0203/u301032/master_thesis/retrieved_data/PERCUSION_HAMP_IWV_IWP_LWP_TLWP.nc",
         chunks={},
     )
-    ds = ds.assign_attrs(featureType="trajectory")
+    ds = ds.assign_attrs(
+        featureType="trajectory",
+        references="https://doi.org/10.5194/amt-7-4539-2014",
+    )
     ds.to_zarr(
         "PERCUSION_HAMP_IWV_IWP_LWP_TLWP.zarr",
         zarr_format=2,
