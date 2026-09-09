@@ -50,7 +50,6 @@ def get_chunks(var, sizes):
         case _:
             chunks = {}
 
-    print(var, sizes, chunks)
     return tuple((chunks[d] for d in sizes))
 
 
