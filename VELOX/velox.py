@@ -1,6 +1,7 @@
 #!/usr/bin/env -S uv run --script
 #SBATCH --partition=compute
 #SBATCH --account=mh0066
+#SBATCH --array=0-4
 #SBATCH --time=04:00:00
 #SBATCH --mem=0
 import os
