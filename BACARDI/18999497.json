@@ -1,0 +1,702 @@
+{
+  "access": {
+    "embargo": {
+      "active": false,
+      "reason": null
+    },
+    "files": "restricted",
+    "record": "public",
+    "status": "restricted"
+  },
+  "created": "2026-03-13T13:45:39.345015+00:00",
+  "custom_fields": {},
+  "deletion_status": {
+    "is_deleted": false,
+    "status": "P"
+  },
+  "files": {
+    "enabled": true
+  },
+  "id": "18999497",
+  "is_draft": false,
+  "is_published": true,
+  "links": {
+    "access": "https://zenodo.org/api/records/18999497/access",
+    "access_grants": "https://zenodo.org/api/records/18999497/access/grants",
+    "access_links": "https://zenodo.org/api/records/18999497/access/links",
+    "access_request": "https://zenodo.org/api/records/18999497/access/request",
+    "access_users": "https://zenodo.org/api/records/18999497/access/users",
+    "archive": "https://zenodo.org/api/records/18999497/files-archive",
+    "archive_media": "https://zenodo.org/api/records/18999497/media-files-archive",
+    "communities": "https://zenodo.org/api/records/18999497/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/18999497/communities-suggestions",
+    "doi": "https://doi.org/10.5281/zenodo.18999497",
+    "draft": "https://zenodo.org/api/records/18999497/draft",
+    "file_modification": "https://zenodo.org/api/records/18999497/file-modification",
+    "files": "https://zenodo.org/api/records/18999497/files",
+    "latest": "https://zenodo.org/api/records/18999497/versions/latest",
+    "latest_html": "https://zenodo.org/records/18999497/latest",
+    "media_files": "https://zenodo.org/api/records/18999497/media-files",
+    "parent": "https://zenodo.org/api/records/18999496",
+    "parent_doi": "https://doi.org/10.5281/zenodo.18999496",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.18999496",
+    "parent_html": "https://zenodo.org/records/18999496",
+    "preview_html": "https://zenodo.org/records/18999497?preview=1",
+    "quota_increase": "https://zenodo.org/api/records/18999497/quota-increase",
+    "request_deletion": "https://zenodo.org/api/records/18999497/request-deletion",
+    "requests": "https://zenodo.org/api/records/18999497/requests",
+    "reserve_doi": "https://zenodo.org/api/records/18999497/draft/pids/doi",
+    "self": "https://zenodo.org/api/records/18999497",
+    "self_doi": "https://doi.org/10.5281/zenodo.18999497",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.18999497",
+    "self_html": "https://zenodo.org/records/18999497",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:18999497/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:18999497/sequence/default",
+    "versions": "https://zenodo.org/api/records/18999497/versions"
+  },
+  "media_files": {
+    "enabled": false
+  },
+  "metadata": {
+    "creators": [
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Luebke",
+          "given_name": "Anna E.",
+          "identifiers": [
+            {
+              "identifier": "0000-0003-1606-6939",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Luebke, Anna E.",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Ehrlich",
+          "given_name": "Andr\u00e9",
+          "identifiers": [
+            {
+              "identifier": "0000-0003-0860-8216",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Ehrlich, Andr\u00e9",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Wolf",
+          "given_name": "Kevin",
+          "identifiers": [
+            {
+              "identifier": "0000-0001-8461-5261",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Wolf, Kevin",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "04bwf3e34",
+            "identifiers": [
+              {
+                "identifier": "04bwf3e34",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.7551.6",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0000 8983 7915",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Giez",
+          "given_name": "Andreas",
+          "identifiers": [
+            {
+              "identifier": "0000-0002-8595-8343",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Giez, Andreas",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "04bwf3e34",
+            "identifiers": [
+              {
+                "identifier": "04bwf3e34",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.7551.6",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0000 8983 7915",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Z\u00f6ger",
+          "given_name": "Martin",
+          "identifiers": [
+            {
+              "identifier": "0000-0001-8291-345X",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Z\u00f6ger, Martin",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "04bwf3e34",
+            "identifiers": [
+              {
+                "identifier": "04bwf3e34",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.7551.6",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0000 8983 7915",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Mallaun",
+          "given_name": "Christian",
+          "identifiers": [
+            {
+              "identifier": "0009-0004-6501-6457",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Mallaun, Christian",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "04bwf3e34",
+            "identifiers": [
+              {
+                "identifier": "04bwf3e34",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.7551.6",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0000 8983 7915",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Nenakhov",
+          "given_name": "Vladyslav",
+          "name": "Nenakhov, Vladyslav",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "04bwf3e34",
+            "identifiers": [
+              {
+                "identifier": "04bwf3e34",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.7551.6",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0000 8983 7915",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Eirenschmalz",
+          "given_name": "Lisa",
+          "name": "Eirenschmalz, Lisa",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "04bwf3e34",
+            "identifiers": [
+              {
+                "identifier": "04bwf3e34",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.7551.6",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0000 8983 7915",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Pasternak",
+          "given_name": "Dominika",
+          "identifiers": [
+            {
+              "identifier": "0000-0001-6446-6297",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Pasternak, Dominika",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Rosenburg",
+          "given_name": "Sophie",
+          "name": "Rosenburg, Sophie",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Sch\u00e4fer",
+          "given_name": "Michael",
+          "identifiers": [
+            {
+              "identifier": "0000-0003-1896-1574",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Sch\u00e4fer, Michael",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Schoch",
+          "given_name": "Patrizia",
+          "identifiers": [
+            {
+              "identifier": "0000-0003-1462-4589",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Schoch, Patrizia",
+          "type": "personal"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "id": "03s7gtk40",
+            "identifiers": [
+              {
+                "identifier": "03s7gtk40",
+                "scheme": "ror"
+              },
+              {
+                "identifier": "grid.9647.c",
+                "scheme": "grid"
+              },
+              {
+                "identifier": "0000 0004 7669 9786",
+                "scheme": "isni"
+              }
+            ],
+            "name": "Leipzig University"
+          }
+        ],
+        "person_or_org": {
+          "family_name": "Wendisch",
+          "given_name": "Manfred",
+          "identifiers": [
+            {
+              "identifier": "0000-0002-4652-5561",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Wendisch, Manfred",
+          "type": "personal"
+        }
+      }
+    ],
+    "dates": [
+      {
+        "date": "2024-08-11",
+        "description": "First research flight",
+        "type": {
+          "id": "collected",
+          "title": {
+            "de": "Gesammelt",
+            "en": "Collected"
+          }
+        }
+      },
+      {
+        "date": "2024-11-19",
+        "description": "Final research flight",
+        "type": {
+          "id": "collected",
+          "title": {
+            "de": "Gesammelt",
+            "en": "Collected"
+          }
+        }
+      }
+    ],
+    "description": "<p><span lang=\"EN-GB\">In 2024, the <em>Persistent EarthCARE Underflight Studies of the ITCZ and Organized Convection</em> (PERCUSION) campaign took place as one of several sub-projects in the <em>Organized Convection and EarthCARE Studies over the Tropical Atlantic</em> (ORCESTRA) initiative. The main goal of ORCESTRA and PERCUSION was to better understand the mechanisms responsible for the organization of tropical convection at the mesoscale as well as validate the newly launched EarthCARE satellite.&nbsp; During PERCUSION, the German High Altitude and Long Range (HALO) research aircraft was operated with an EarthCARE-like payload. Throughout August and September, targeted flights based out of Sal, Cape Verde and Barbados were made across the Atlantic Intertropical Convergence Zone (ITCZ). Coordinated underpasses with EarthCARE were also a feature of all research flights. In November, additional flights based out of Oberpfaffenhofen, Germany took place with the primary aim of EarthCARE validation in other atmospheric conditions.&nbsp;</span></p>\n<p><span lang=\"EN-GB\">One of the instruments on board HALO was the Broadband AirCrAft RaDiometer Instrumentation (BACARDI; Ehrlich et al., 2023), which provides observations of broadband solar and thermal-infrared, upward and downward irradiance at flight altitude. BACARDI consists of two sets of Kipp and Zonen instruments &ndash; pyranometers (CMP-22) for the solar range (0.2 &ndash; 3.6 &micro;m) and pyrgeometers (CGR-4) for the thermal-infrared range (4.5 &ndash; 42 &micro;m). The data is provided at a frequency of 10 Hz and has been corrected for dynamic temperature effects. Observations of the downward solar irradiance have been provided with and without correction for the aircraft attitude, which assumes cloud-free and cloudy conditions above the aircraft. Simulated cloud-free downward solar irradiances are also provided as a reference.</span></p>",
+    "publication_date": "2026-03-13",
+    "publisher": "Zenodo",
+    "references": [
+      {
+        "reference": "Ehrlich, A., Z\u00f6ger, M., Giez, A., Nenakhov, V., Mallaun, C., Maser, R., R\u00f6schenthaler, T., Luebke, A. E., Wolf, K., Stevens, B., and Wendisch, M.: A new airborne broadband radiometer system and an efficient method to correct dynamic thermal offsets, Atmos. Meas. Tech., 16, 1563\u20131581, https://doi.org/10.5194/amt-16-1563-2023, 2023."
+      }
+    ],
+    "related_identifiers": [
+      {
+        "identifier": "10.5281/zenodo.15527242",
+        "relation_type": {
+          "id": "issupplementedby",
+          "title": {
+            "de": "Wird erg\u00e4nzt durch",
+            "en": "Is supplemented by"
+          }
+        },
+        "resource_type": {
+          "id": "dataset",
+          "title": {
+            "de": "Datensatz",
+            "en": "Dataset"
+          }
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "10.5281/zenodo.17153148",
+        "relation_type": {
+          "id": "issupplementedby",
+          "title": {
+            "de": "Wird erg\u00e4nzt durch",
+            "en": "Is supplemented by"
+          }
+        },
+        "resource_type": {
+          "id": "dataset",
+          "title": {
+            "de": "Datensatz",
+            "en": "Dataset"
+          }
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "10.5281/zenodo.17153625",
+        "relation_type": {
+          "id": "issupplementedby",
+          "title": {
+            "de": "Wird erg\u00e4nzt durch",
+            "en": "Is supplemented by"
+          }
+        },
+        "resource_type": {
+          "id": "dataset",
+          "title": {
+            "de": "Datensatz",
+            "en": "Dataset"
+          }
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "10.5281/zenodo.17910006",
+        "relation_type": {
+          "id": "issupplementedby",
+          "title": {
+            "de": "Wird erg\u00e4nzt durch",
+            "en": "Is supplemented by"
+          }
+        },
+        "resource_type": {
+          "id": "dataset",
+          "title": {
+            "de": "Datensatz",
+            "en": "Dataset"
+          }
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "https://orcestra-campaign.org/percusion.html",
+        "relation_type": {
+          "id": "isdescribedby",
+          "title": {
+            "de": "Wird beschrieben von",
+            "en": "Is described by"
+          }
+        },
+        "resource_type": {
+          "id": "other",
+          "title": {
+            "de": "Sonstige",
+            "en": "Other"
+          }
+        },
+        "scheme": "url"
+      }
+    ],
+    "resource_type": {
+      "id": "dataset",
+      "title": {
+        "de": "Datensatz",
+        "en": "Dataset"
+      }
+    },
+    "rights": [
+      {
+        "description": {
+          "en": "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+        },
+        "icon": "cc-by-icon",
+        "id": "cc-by-4.0",
+        "props": {
+          "scheme": "spdx",
+          "url": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "title": {
+          "en": "Creative Commons Attribution 4.0 International"
+        }
+      }
+    ],
+    "subjects": [
+      {
+        "subject": "Broadband irradiance"
+      },
+      {
+        "subject": "PERCUSION"
+      }
+    ],
+    "title": "Broadband solar and thermal-infrared, upward and downward irradiance measured by BACARDI during the PERCUSION field campaign",
+    "version": "2"
+  },
+  "parent": {
+    "access": {
+      "owned_by": {
+        "user": "1571732"
+      },
+      "settings": {
+        "accept_conditions_text": null,
+        "allow_guest_requests": false,
+        "allow_user_requests": true,
+        "secret_link_expiration": 0
+      }
+    },
+    "communities": {},
+    "id": "18999496",
+    "pids": {
+      "doi": {
+        "client": "datacite",
+        "identifier": "10.5281/zenodo.18999496",
+        "provider": "datacite"
+      }
+    }
+  },
+  "pids": {
+    "doi": {
+      "client": "datacite",
+      "identifier": "10.5281/zenodo.18999497",
+      "provider": "datacite"
+    },
+    "oai": {
+      "identifier": "oai:zenodo.org:18999497",
+      "provider": "oai"
+    }
+  },
+  "revision_id": 4,
+  "stats": {
+    "all_versions": {
+      "data_volume": 467213260.0,
+      "downloads": 30,
+      "unique_downloads": 30,
+      "unique_views": 72,
+      "views": 76
+    },
+    "this_version": {
+      "data_volume": 467213260.0,
+      "downloads": 30,
+      "unique_downloads": 30,
+      "unique_views": 72,
+      "views": 76
+    }
+  },
+  "status": "published",
+  "swh": {},
+  "updated": "2026-03-13T13:45:40.843891+00:00",
+  "versions": {
+    "index": 1,
+    "is_latest": true
+  }
+}
