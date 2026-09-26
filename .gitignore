@@ -2,3 +2,4 @@
 cloudcamera/videos
 *.nc
 *.zarr
+HALO-DB_dataset*
