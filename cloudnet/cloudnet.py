@@ -1,3 +1,5 @@
+import textwrap
+
 import fsspec
 import numcodecs
 import numpy as np
@@ -131,6 +133,13 @@ def _main():
     cloudnet.attrs["project"] = "BOW-TIE"
     cloudnet.attrs["keywords"] = "Cloudnet, effective radius, droplet"
     cloudnet.attrs["featureType"] = "trajectoryProfile"
+    cloudnet.attrs["summary"] = textwrap.dedent("""
+        Level 0 is the raw Doppler Spectra observed by the cloud radar (not published here).
+        Level 1 refers to the automatically retrieved products by the internal software of the cloud radar (not published here).
+        The Level 1 data was upgraded to Level 1b after applying routines for dealiasing, despeckeling and a heave correction (not published here).
+        Level 2 dataset was created by applying the Cloudnet processing chain (on the Cloudnet servers), also including ceilometer, microwave radiometer and model (ECMWF) data. The regridded level 1b data and further derived microphysical products are level 2.
+        The dataset was updated to level 2a by adding quality flags for strong radar signal attenuation and ghost echoes (published here).
+        """)
 
     cloudnet.load().to_zarr(
         "cloudnet.zarr",
